@@ -1,13 +1,12 @@
-import type { ErrorResponse } from '@/types/response';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { withAuth } from "@/lib/auth";
+import type { ErrorResponse } from "@/types/response";
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ErrorResponse>
-) {
-  // Semua request yang masuk ke sini berarti tidak ada di API routes lainnya
+const handler = async (req: NextApiRequest, res: NextApiResponse<ErrorResponse>) => {
   res.status(404).json({
-    status: 'error',
-    message: 'endpoint tidak valid',
+    status: "error",
+    message: "endpoint tidak valid",
   });
-}
+};
+
+export default withAuth(handler);
